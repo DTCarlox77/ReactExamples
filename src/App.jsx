@@ -1,18 +1,17 @@
-import { useState } from 'react'
 import './App.css';
-
-const value = 0;
+import Tasks from './components/Tasks';
 
 function App() {
-    const [counter, setCounter] = useState( value );
-
     return (
-        <div>
-            <h1>{ counter }</h1>
-            <button onClick={ () => setCounter((counter) => counter - 1) }>-1</button>
-            <button onClick={ () => setCounter((counter) => counter + 1) }>+1</button>
-            <button onClick={ () => setCounter(value) }>Reset</button>
+    <>
+        <h2 className='m-4'>App | React ⚛️</h2>
+        <hr />
+        <Tasks />
+        <hr />
+        <div className='row'>
+            <p className='m-4'>Creada por: DTCarlox77</p>
         </div>
+    </>
     )
 }
 
