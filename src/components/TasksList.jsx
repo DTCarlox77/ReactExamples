@@ -1,12 +1,15 @@
 import PropTypes from "prop-types";
 import Task from "./Task";
 
-const TasksList = ({ tasks = [], onDelete }) => {
+const TasksList = ({ tasks = [], onDelete, onToggle }) => {
   return (
     <>
       <ul className="list-group">
         {
-          tasks.map((task) => <Task key={ task.id } id={ task.id } description={ task.description } onDelete={ onDelete } />)
+          tasks.map((task) => <Task key={ task.id } id={ task.id } description={ task.description } active={ task.done }
+          onDelete={ onDelete }
+          onToggle={ onToggle }
+          />)
         }
       </ul>
     </>
@@ -15,7 +18,8 @@ const TasksList = ({ tasks = [], onDelete }) => {
 
 TasksList.propTypes = {
   tasks : PropTypes.array.isRequired,
-  onDelete : PropTypes.any
+  onDelete : PropTypes.any,
+  onToggle : PropTypes.any
 }
 
 export default TasksList;

@@ -1,51 +1,11 @@
 import TasksForm from "./TasksForm"
 import TasksList from "./TasksList"
-import { useEffect, useReducer } from "react"
+import { useTodo } from "../hooks/useTodo"
 
-const tasks = [];
-
-const initialState = tasks;
-
-const todoReducer = (state = [], action = {}) => {
-  switch (action.type) {
-    case 'Add Todo':
-      return [...state, action.payload]
-
-    case 'Remove Todo':
-      return state.filter( todo => todo.id !== action.payload );
-  
-    default:
-      return state;
-  }
-}
-
-const init = () => {
-  return JSON.parse(localStorage.getItem('tasks')) || [];
-}
 
 const Tasks = () => {
 
-  const [todos, dispatch] = useReducer(todoReducer, initialState, init);
-
-  useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(todos) || []);
-  }, [todos])
-
-  const onNewTodo = (todo) => {
-    const action = {
-      type: 'Add Todo',
-      payload: todo
-    }
-    dispatch(action);
-  }
-
-  const onDeleteTodo = (id) => {
-    const action = {
-      type: 'Remove Todo',
-      payload: id
-    }
-    dispatch(action);
-  }
+  const { todos, onDeleteTodo, onNewTodo, onToggleTodo } = useTodo();
 
   return (
     <>
@@ -54,7 +14,7 @@ const Tasks = () => {
         <div className="col-7">
           <h2>Lista de tareas</h2>
           <hr />
-          <TasksList tasks={ todos } onDelete={ onDeleteTodo } />
+          <TasksList tasks={ todos } onDelete={ onDeleteTodo } onToggle={ onToggleTodo } />
 
         </div>
         <div className="col-5">

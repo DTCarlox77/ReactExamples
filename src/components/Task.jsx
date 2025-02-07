@@ -1,10 +1,14 @@
 import PropTypes from "prop-types";
 
-const Task = ({ id, description, onDelete }) => {
+const Task = ({ id, description, onDelete, onToggle, active }) => {
   return (
     <>
-      <li className="list-group-item d-flex justify-content-between">
-        <span className="align-self-center">{ description }</span>
+      <li className="list-group-item d-flex justify-content-between"
+        style={{ backgroundColor : (active) ? 'lightgreen' : 'white' }}
+      >
+        <span className="align-self-center"
+          onClick={ () => onToggle(id) }
+        >{ description }</span>
         <button
           onClick={ () => {
             onDelete(id)
@@ -18,7 +22,9 @@ const Task = ({ id, description, onDelete }) => {
 Task.propTypes = {
   id: PropTypes.number,
   description : PropTypes.string,
-  onDelete: PropTypes.any
+  onDelete: PropTypes.any,
+  onToggle : PropTypes.any,
+  active: PropTypes.bool
 }
 
 export default Task;
